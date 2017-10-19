@@ -23,7 +23,10 @@ import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
+<<<<<<< HEAD
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
+=======
+>>>>>>> JBIDE-25210 ImportApplicationWizardTest stabilization fixes
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftResources;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
@@ -42,7 +45,11 @@ public class ImportApplicationWizardTest extends ImportApplicationBase {
 	
 	@Test
 	public void testImportOpenShift3AppViaOpenshiftView() {
+<<<<<<< HEAD
 		ImportApplicationWizard importWizard = OpenShiftUtils.openImportApplicationWizardFromOpenshiftView(project);
+=======
+		ImportApplicationWizard importWizard = OpenShiftUtils.openImportApplicationWizardFromOpenshiftView(service);
+>>>>>>> JBIDE-25210 ImportApplicationWizardTest stabilization fixes
 		
 		importWizard.finish();
 		assertProjectExistsInProjectView(OpenShiftResources.NODEJS_GIT_NAME);
@@ -67,7 +74,11 @@ public class ImportApplicationWizardTest extends ImportApplicationBase {
 	
 	@Test
 	public void testImportOpenShift3AppWizardGitAPI() {
+<<<<<<< HEAD
 		ImportApplicationWizard importWizard = OpenShiftUtils.openImportApplicationWizardFromOpenshiftView(project);
+=======
+		ImportApplicationWizard importWizard = OpenShiftUtils.openImportApplicationWizardFromOpenshiftView(service);
+>>>>>>> JBIDE-25210 ImportApplicationWizardTest stabilization fixes
 
 		
 		String gitUrl = getGitUrlFromWizard();		
@@ -82,7 +93,11 @@ public class ImportApplicationWizardTest extends ImportApplicationBase {
 	public void testImportOpenShift3AppViaOpenshiftViewTwice() {
 		testImportOpenShift3AppViaOpenshiftView();
 		
+<<<<<<< HEAD
 		ImportApplicationWizard importWizard = OpenShiftUtils.openImportApplicationWizardFromOpenshiftView(project);
+=======
+		ImportApplicationWizard importWizard = OpenShiftUtils.openImportApplicationWizardFromOpenshiftView(service);
+>>>>>>> JBIDE-25210 ImportApplicationWizardTest stabilization fixes
 		
 		GitCloningWizardPage gitWizardPage = new GitCloningWizardPage();
 		
