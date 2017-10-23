@@ -25,14 +25,17 @@ import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
-import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement;
+import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
 import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftConnectionRequirement.CleanConnection;
+import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement.RequiredBasicConnection;
 import org.jboss.tools.openshift.reddeer.utils.DatastoreOS3;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
 import org.jboss.tools.openshift.reddeer.utils.v3.OpenShift3NativeProjectUtils;
 import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.jboss.tools.openshift.reddeer.view.resources.OpenShift3Connection;
+import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.condition.TestConditionIsMet;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -95,6 +98,8 @@ public class DeleteProjectTest {
 		new PushButton("Refresh...").click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 
+		new WaitUntil(new TestConditionIsMet(() -> !(new DefaultTable(new DefaultShell(OpenShiftLabel.Shell.MANAGE_OS_PROJECTS)).containsItem(PROJECT_NAME))));
+
 		assertFalse("There should not be present project in the table.",
 				new DefaultTable().containsItem(PROJECT_NAME));
 		new OkButton().click();
@@ -103,5 +108,10 @@ public class DeleteProjectTest {
 
 		assertFalse("Project is still presented in OpenShift explorer under a connection.",
 				connection.projectExists(PROJECT_NAME));
+	}
+	
+	@AfterClass
+	public static void tearDown() {
+		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 	}
 }

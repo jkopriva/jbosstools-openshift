@@ -19,6 +19,7 @@ import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -36,7 +37,9 @@ import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(RedDeerSuite.class)
 @RequiredBasicConnection
 public class CreateResourcesTest {
 
@@ -97,8 +100,7 @@ public class CreateResourcesTest {
 	
 	@Test
 	public void testCreateResourceFromURL() {
-		createResource("https://raw.githubusercontent.com/jbosstools/jbosstools-integration-tests/"
-				+ "master/tests/org.jboss.tools.openshift.ui.bot.test/resources/hello-pod.json");
+		createResource("https://raw.githubusercontent.com/jbosstools/jbosstools-openshift/master/itests/org.jboss.tools.openshift.ui.bot.test/resources/hello-pod.json");
 		
 		assertTrue("Hello pod has not been created from file",
 				explorer.getOpenShift3Connection().getProject(testProject).

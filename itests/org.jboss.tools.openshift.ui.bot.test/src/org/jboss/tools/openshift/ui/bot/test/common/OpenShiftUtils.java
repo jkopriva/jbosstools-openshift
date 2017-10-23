@@ -108,13 +108,8 @@ public class OpenShiftUtils {
 		}
 	}
 	
-<<<<<<< HEAD
 	public static ImportApplicationWizard openImportApplicationWizardFromOpenshiftView(OpenShiftProject openshiftProject){
 		openshiftProject.select();
-=======
-	public static ImportApplicationWizard openImportApplicationWizardFromOpenshiftView(Service openshiftService){
-		openshiftService.select();
->>>>>>> JBIDE-25210 ImportApplicationWizardTest stabilization fixes
 		new ContextMenuItem(OpenShiftLabel.ContextMenu.IMPORT_APPLICATION).select();
 		new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.IMPORT_APPLICATION));
 		return new ImportApplicationWizard();
