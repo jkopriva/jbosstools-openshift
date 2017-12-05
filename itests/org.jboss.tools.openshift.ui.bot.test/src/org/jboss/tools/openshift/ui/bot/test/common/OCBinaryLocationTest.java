@@ -23,12 +23,13 @@ import org.jboss.tools.openshift.reddeer.preference.page.OpenShift3PreferencePag
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftCommandLineToolsRequirement;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftCommandLineToolsRequirement.OCBinary;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
+import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 @OCBinary
-public class OCBinaryLocationTest {
+public class OCBinaryLocationTest extends AbstractTest {
 	
 	private WorkbenchPreferenceDialog dialog;
 	private OpenShift3PreferencePage page;
