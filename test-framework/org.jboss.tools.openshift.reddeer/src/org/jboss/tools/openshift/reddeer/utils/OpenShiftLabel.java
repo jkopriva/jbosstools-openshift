@@ -167,6 +167,7 @@ public class OpenShiftLabel {
 		
 		// Server adapter related
 		public static final String PUBLISH_CHANGES = "Publish Changes";
+		public static final String CREATE_SERVER_ADAPTER = "Create server adapter";
 		
 		// Application related
 		public static final String APPLICATION_SUMMARY = "Create Application Summary";

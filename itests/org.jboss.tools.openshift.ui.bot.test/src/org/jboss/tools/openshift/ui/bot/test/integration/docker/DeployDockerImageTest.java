@@ -60,6 +60,7 @@ import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
 import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.jboss.tools.openshift.reddeer.view.resources.OpenShift3Connection;
 import org.jboss.tools.openshift.reddeer.widget.ShellWithButton;
+import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -75,7 +76,7 @@ import org.junit.runner.RunWith;
 @RequiredBasicConnection
 @CleanConnection
 @RunWith(RedDeerSuite.class)
-public class DeployDockerImageTest {
+public class DeployDockerImageTest extends AbstractTest {
 	
 	private static final Logger LOGGER = new Logger(DeployDockerImageTest.class);
 	
@@ -183,7 +184,6 @@ public class DeployDockerImageTest {
 		if (connection.projectExists(PROJECT2)) {
 			connection.getProject(PROJECT2).delete();
 		}
-		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 	}
 	
 	@After

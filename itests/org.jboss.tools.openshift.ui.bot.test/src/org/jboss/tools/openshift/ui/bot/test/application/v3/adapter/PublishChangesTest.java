@@ -14,13 +14,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.HashSet;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
@@ -42,9 +36,9 @@ import org.jboss.tools.openshift.reddeer.condition.OpenShiftResourceExists;
 import org.jboss.tools.openshift.reddeer.enums.Resource;
 import org.jboss.tools.openshift.reddeer.enums.ResourceState;
 import org.jboss.tools.openshift.reddeer.exception.OpenShiftToolsException;
-import org.jboss.tools.openshift.reddeer.requirement.OpenShiftCommandLineToolsRequirement.OCBinary;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement.RequiredBasicConnection;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement;
+import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftConnectionRequirement.CleanConnection;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement.RequiredProject;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftServiceRequirement.RequiredService;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
@@ -53,18 +47,20 @@ import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.jboss.tools.openshift.reddeer.view.resources.OpenShiftProject;
 import org.jboss.tools.openshift.reddeer.view.resources.ServerAdapter;
 import org.jboss.tools.openshift.reddeer.view.resources.ServerAdapter.Version;
+import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
+import org.jboss.tools.openshift.ui.bot.test.common.OpenShiftUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OCBinary
 @OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
 @RequiredBasicConnection
+@CleanConnection
 @RequiredProject
 @RequiredService(service = "eap-app", template = "resources/eap70-basic-s2i-helloworld.json")
-public class PublishChangesTest {
+public class PublishChangesTest extends AbstractTest  {
 
 	public static String PUBLISHED_CODE = "package org.jboss.as.quickstarts.helloworld;\n"
 			+ "public class HelloService {\n"
@@ -84,6 +80,7 @@ public class PublishChangesTest {
 	
 	@BeforeClass	
 	public static void waitForRunningApplication() {
+		new ProjectExplorer().deleteAllProjects(true);
 		new WaitUntil(new OpenShiftResourceExists(Resource.BUILD, "eap-app-1", ResourceState.COMPLETE, projectReq.getProjectName()),
 				TimePeriod.getCustom(1000));
 		
@@ -95,31 +92,10 @@ public class PublishChangesTest {
 	
 	
 	private static void cloneGitRepoAndImportProject() {
-		cloneGitRepository();
-		importProjectUsingSmartImport();
+		OpenShiftUtils.cloneGitRepository(GIT_REPO_DIRECTORY,GIT_REPO_URL, true);
+		OpenShiftUtils.importProjectUsingSmartImport(GIT_REPO_DIRECTORY, PROJECT_NAME);
 	}
 
-	private static void cloneGitRepository() {
-		TestUtils.cleanupGitFolder(new File(GIT_REPO_DIRECTORY),"jboss-eap-quickstarts");
-		try {
-			Git.cloneRepository().setURI(GIT_REPO_URL).setDirectory(new File(GIT_REPO_DIRECTORY)).call();
-		} catch (GitAPIException e) {
-			throw new RuntimeException("Unable to clone git repository from " + GIT_REPO_URL);
-		}
-	}
-
-	@SuppressWarnings("restriction")
-	private static void importProjectUsingSmartImport() {
-		SmartImportJob job = new SmartImportJob(new File(GIT_REPO_DIRECTORY + File.separator + PROJECT_NAME),
-				Collections.emptySet(), true, true);
-		HashSet<File> directory = new HashSet<File>();
-		directory.add(new File(GIT_REPO_DIRECTORY + File.separator + PROJECT_NAME));
-		job.setDirectoriesToImport(directory);
-		job.run(new NullProgressMonitor());
-		//TODO Cheatsheet
-		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
-	}
-	
 	@Test
 	public void testAutomaticPublish() {
 		createServerAdapter();
@@ -134,6 +110,8 @@ public class PublishChangesTest {
 	
 	private void changeProjectAndVerifyAutoPublish() {
 		ProjectExplorer projectExplorer = new ProjectExplorer();
+		projectExplorer.open();
+		projectExplorer.getProject(PROJECT_NAME).select();
 		ProjectItem projectItem = projectExplorer.getProject(PROJECT_NAME).getProjectItem("Java Resources", "src/main/java",
 				"org.jboss.as.quickstarts.helloworld", "HelloService.java");
 		projectItem.select();
@@ -173,5 +151,6 @@ public class PublishChangesTest {
 		} catch (OpenShiftToolsException ex) {
 			// do nothing, adapter does not exists
 		}
+		TestUtils.cleanupGitFolder(new File(GIT_REPO_DIRECTORY));
 	}
 }
