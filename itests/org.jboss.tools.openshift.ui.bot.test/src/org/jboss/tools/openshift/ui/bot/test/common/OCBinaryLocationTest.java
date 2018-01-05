@@ -20,7 +20,6 @@ import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.tools.openshift.reddeer.preference.page.OpenShift3PreferencePage;
-import org.jboss.tools.openshift.reddeer.requirement.OpenShiftCommandLineToolsRequirement;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftCommandLineToolsRequirement.OCBinary;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
@@ -28,7 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-@OCBinary
+@OCBinary(cleanup=false, setOCInPrefs=true)
 public class OCBinaryLocationTest extends AbstractTest {
 	
 	private WorkbenchPreferenceDialog dialog;
@@ -45,8 +44,6 @@ public class OCBinaryLocationTest extends AbstractTest {
 	
 	@Test
 	public void testSetValidOCLocation() {
-		page.setOCLocation(OpenShiftCommandLineToolsRequirement.getOCLocation());
-		
 		try {
 			new WaitUntil(new ControlIsEnabled(new PushButton(OpenShiftLabel.Button.APPLY)), 
 					TimePeriod.getCustom(5));
@@ -69,7 +66,6 @@ public class OCBinaryLocationTest extends AbstractTest {
 	
 	@After
 	public void closeDialog() {
-		page.clearOCLocation();
 		dialog.cancel();
 	}
 }

@@ -11,9 +11,11 @@
 package org.jboss.tools.openshift.reddeer.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jgit.api.Git;
@@ -45,7 +47,7 @@ public class TestUtils {
 		dialog.open();
 		dialog.select(page);
 		if (setUp) {
-			page.setOCLocation(OpenShiftCommandLineToolsRequirement.getOCLocation());
+			page.setOCLocation(OpenShiftCommandLineToolsRequirement.getDefaultOCLocation());
 		} else {
 			page.clearOCLocation();
 		}
@@ -141,6 +143,41 @@ public class TestUtils {
 			return defaultValue;
 		}
 		return value;
+	}
+	
+	/**
+	 * Provide resource absolute path in project directory
+	 * @param path - resource relative path
+	 * @return resource absolute path
+	 */
+	public static String getProjectAbsolutePath(String... path) {
+
+		// Construct path
+		StringBuilder builder = new StringBuilder();
+		for (String fragment : path) {
+			builder.append("/" + fragment);
+		}
+
+		String filePath = "";
+		filePath = System.getProperty("user.dir");
+		File file = new File(filePath + builder.toString());
+		if (!file.exists()) {
+			throw new RedDeerException("Resource file does not exists within project path "
+					+ filePath + builder.toString());
+		}
+
+		return file.getAbsolutePath();
+	}
+	
+	public static Properties readPropertiesFile(String filePath) {
+		Properties properties = new Properties();
+		File file = new File(filePath);
+		try (FileInputStream fis = new FileInputStream(file)) {
+			properties.load(fis);
+		} catch (IOException exc) {
+			exc.printStackTrace();
+		}
+		return properties;
 	}
 
 	/**
