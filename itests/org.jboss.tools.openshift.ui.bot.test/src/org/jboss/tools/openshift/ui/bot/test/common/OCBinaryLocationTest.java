@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.jboss.tools.openshift.ui.bot.test.common;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
@@ -28,7 +29,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-@OCBinary
+@OCBinary(cleanup=false, setOCInPrefs=true)
 public class OCBinaryLocationTest extends AbstractTest {
 	
 	private WorkbenchPreferenceDialog dialog;
@@ -44,8 +45,13 @@ public class OCBinaryLocationTest extends AbstractTest {
 	}
 	
 	@Test
+	public void testOClocationSetByRequirement() {
+		assertTrue(page.getOCLocation().getText().contains("binaries/oc"));
+	}
+	
+	@Test
 	public void testSetValidOCLocation() {
-		page.setOCLocation(OpenShiftCommandLineToolsRequirement.getOCLocation());
+		page.setOCLocation(OpenShiftCommandLineToolsRequirement.getDefaultOCLocation());
 		
 		try {
 			new WaitUntil(new ControlIsEnabled(new PushButton(OpenShiftLabel.Button.APPLY)), 
@@ -69,7 +75,6 @@ public class OCBinaryLocationTest extends AbstractTest {
 	
 	@After
 	public void closeDialog() {
-		page.clearOCLocation();
 		dialog.cancel();
 	}
 }
