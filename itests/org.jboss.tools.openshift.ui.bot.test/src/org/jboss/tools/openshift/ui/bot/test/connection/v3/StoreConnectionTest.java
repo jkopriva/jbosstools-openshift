@@ -49,8 +49,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @OpenPerspective(value=JBossPerspective.class)
-//@SuppressWarnings("restriction")
-@OCBinary
+@SuppressWarnings("restriction")
+@OCBinary(setOCInPrefs=true)
 @RequiredBasicConnection
 @RequiredProject
 @RunWith(RedDeerSuite.class)

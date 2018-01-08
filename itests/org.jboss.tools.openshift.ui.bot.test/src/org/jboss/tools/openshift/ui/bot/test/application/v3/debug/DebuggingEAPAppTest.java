@@ -22,6 +22,7 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
+import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
@@ -63,6 +64,7 @@ import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.tools.openshift.reddeer.preference.page.JavaDebugPreferencePage;
 import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftConnectionRequirement.CleanConnection;
+import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftExplorerRequirement.CleanOpenShiftExplorer;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement.RequiredBasicConnection;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement;
@@ -84,6 +86,7 @@ import org.junit.runner.RunWith;
 
 @OpenPerspective(DebugPerspective.class)
 @RunWith(RedDeerSuite.class)
+@CleanOpenShiftExplorer
 @RequiredBasicConnection
 @CleanConnection
 @RequiredProject
@@ -120,15 +123,23 @@ public class DebuggingEAPAppTest extends AbstractTest {
 		createServerAdapter();
 
 		disableShowConsoleWhenOutputChanges();
-
+		
 		serverAdapter = new ServerAdapter(Version.OPENSHIFT3, "eap-app", "Service");
+		try {
+			restartServerInDebug(serverAdapter);
+		} catch (WaitTimeoutExpiredException ex) {
+			//try once again
+			restartServerInDebug(serverAdapter);
+		}
+
+		cleanAndBuildWorkspace();
+	}
+	
+	private static void restartServerInDebug(ServerAdapter serverAdapter) {
 		serverAdapter.select();
 		new ContextMenuItem("Restart in Debug").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
-
 		waitForserverAdapterToBeInRightState();
-
-		cleanAndBuildWorkspace();
 	}
 
 	private static void rebuildProject() {
@@ -241,7 +252,7 @@ public class DebuggingEAPAppTest extends AbstractTest {
 	}
 
 	private static void waitForserverAdapterToBeInRightState() {
-		new WaitUntil(new ServerHasState(new ServersView2().getServer(serverAdapter.getLabel()), ServerState.DEBUGGING), TimePeriod.LONG);
+		new WaitUntil(new ServerHasState(new ServersView2().getServer(serverAdapter.getLabel()), ServerState.DEBUGGING), TimePeriod.VERY_LONG);
 		new WaitUntil(new ServerHasPublishState(new ServersView2().getServer(serverAdapter.getLabel()),
 				ServerPublishState.SYNCHRONIZED));
 	}
@@ -434,7 +445,7 @@ public class DebuggingEAPAppTest extends AbstractTest {
 		ConsoleView consoleView = new ConsoleView();
 		consoleView.open();
 
-		new WaitUntil(new ShowConsoleOutputToolItemIsAvailable(), TimePeriod.LONG);
+		new WaitUntil(new ShowConsoleOutputToolItemIsAvailable(), TimePeriod.VERY_LONG);
 
 		DefaultToolItem showConsoleOnChange = new DefaultToolItem(new WorkbenchShell(),
 				"Show Console Output When Standard Out Changes");

@@ -14,17 +14,14 @@ import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.CreateServerAdapterTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.ImportApplicationWizardGitTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.ImportApplicationWizardTest;
-import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.PublishChangesTest;
-import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.ServerAdapterFromResourceTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.adapter.ServerAdapterWizardHandlingTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.advanced.CreateResourcesTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.advanced.EditResourceLimitsTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.LabelsTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.NewApplicationWizardHandlingTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.TemplateParametersTest;
-import org.jboss.tools.openshift.ui.bot.test.application.v3.create.CreateApplicationFromTemplateTest;
-import org.jboss.tools.openshift.ui.bot.test.application.v3.create.CreateApplicationOnBuilderImageTest;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.debug.DebuggingEAPAppTest;
+import org.jboss.tools.openshift.ui.bot.test.common.OCBinaryLocationTest;
 import org.jboss.tools.openshift.ui.bot.test.connection.v3.ConnectionPropertiesTest;
 import org.jboss.tools.openshift.ui.bot.test.connection.v3.ConnectionWizardHandlingTest;
 import org.jboss.tools.openshift.ui.bot.test.connection.v3.OpenNewConnectionWizardTest;
@@ -48,6 +45,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(RedDeerSuite.class)
 @SuiteClasses({	
+	OCBinaryLocationTest.class,
+	
 	// Connection
 	OpenNewConnectionWizardTest.class,
 	RemoveConnectionTest.class,
@@ -80,9 +79,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	// Server adapter
 	ServerAdapterWizardHandlingTest.class,
 	CreateServerAdapterTest.class,
-	ServerAdapterFromResourceTest.class,
-	PublishChangesTest.class,
-	DebuggingEAPAppTest.class,
+	//DebuggingEAPAppTest.class,
 	
 })
 public class OpenShift3StableBotTests extends AbstractBotTests {

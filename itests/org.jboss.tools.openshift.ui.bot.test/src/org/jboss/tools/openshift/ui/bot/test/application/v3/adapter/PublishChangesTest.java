@@ -39,6 +39,7 @@ import org.jboss.tools.openshift.reddeer.exception.OpenShiftToolsException;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement.RequiredBasicConnection;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement;
 import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftConnectionRequirement.CleanConnection;
+import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftExplorerRequirement.CleanOpenShiftExplorer;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement.RequiredProject;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftServiceRequirement.RequiredService;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
@@ -56,6 +57,7 @@ import org.junit.runner.RunWith;
 
 @OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
+@CleanOpenShiftExplorer
 @RequiredBasicConnection
 @CleanConnection
 @RequiredProject
@@ -105,7 +107,7 @@ public class PublishChangesTest extends AbstractTest  {
 	
 	private void createServerAdapter() {
 		OpenShiftExplorerView explorer = new OpenShiftExplorerView();
-		explorer.getOpenShift3Connection().getProject(projectReq.getProjectName()).getService("eap-app").createServerAdapter();
+		explorer.getOpenShift3Connection().getProject(projectReq.getProjectName()).getServicesWithName("eap-app").get(0).createServerAdapter();
 	}
 	
 	private void changeProjectAndVerifyAutoPublish() {
@@ -122,7 +124,7 @@ public class PublishChangesTest extends AbstractTest  {
 		textEditor.close(true);
 		
 		new WaitWhile(new JobIsRunning(), TimePeriod.DEFAULT);
-		new WaitUntil(new ConsoleHasNoChange(), TimePeriod.LONG);
+		new WaitUntil(new ConsoleHasNoChange(), TimePeriod.VERY_LONG);
 	
 		assertTrue("Local changes performed to project have not been autopublished, or at least rsync "
 					+ "output in console view does not contain information about sending incremental list of changes,"
@@ -137,7 +139,7 @@ public class PublishChangesTest extends AbstractTest  {
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		
 		try {
-			new WaitUntil(new BrowserContainsText("Hello OpenShift"), TimePeriod.VERY_LONG);			
+			new WaitUntil(new BrowserContainsText("Hello"), TimePeriod.VERY_LONG);			
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("Application was not deployed successfully because it is not shown in web browser properly.");
 		}
