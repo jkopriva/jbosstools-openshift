@@ -19,6 +19,7 @@ import org.eclipse.linuxtools.docker.reddeer.ui.DockerExplorerView;
 import org.eclipse.linuxtools.docker.reddeer.ui.resources.DockerConnection;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.jface.exception.JFaceLayerException;
+import org.eclipse.reddeer.junit.execution.annotation.RunIf;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.junit.screenshot.CaptureScreenshotException;
@@ -66,6 +67,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	private static final String TAG = "v1.2.1";
 
 	@BeforeClass
+	@RunIf(conditionClass = IsCDKConnection.class)
 	public static void setUp() {
 		closeBrowser();// try to close browser if it is opened
 		createDockerConnection();
@@ -124,6 +126,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = IsCDKConnection.class)
 	public void testWizardDataHandlingOpenedFromOpenShiftExplorerTest() {
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromOpenShiftExplorer(PROJECT1);
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromOpenShiftExplorer(PROJECT2);
@@ -131,6 +134,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = IsCDKConnection.class)
 	public void testWizardDataHandlingOpenedFromDockerExplorer() {
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromDockerExplorer(PROJECT1);
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromDockerExplorer(PROJECT2);
@@ -138,6 +142,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = IsCDKConnection.class)
 	public void testDeployDockerImageFromOpenShiftExplorer() {
 		selectProject(PROJECT2, openshiftConnectionRequirement);
 		new ContextMenuItem(OpenShiftLabel.ContextMenu.DEPLOY_DOCKER_IMAGE).select();
@@ -152,6 +157,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = IsCDKConnection.class)
 	public void testDeployDockerImageFromDockerExplorer() {
 		selectProject(PROJECT1, openshiftConnectionRequirement);
 		openDeployToOpenShiftWizardFromDockerExplorer(HELLO_OS_DOCKER_IMAGE, TAG);
