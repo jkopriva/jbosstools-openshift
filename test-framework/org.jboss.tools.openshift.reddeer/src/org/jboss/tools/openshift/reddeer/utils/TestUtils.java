@@ -20,8 +20,10 @@ import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.reddeer.common.exception.RedDeerException;
+import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.browser.InternalBrowser;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -208,5 +210,14 @@ public class TestUtils {
 		} catch (RedDeerException ex) {
 			// no dialog was presented
 		}
+	}
+	
+	public static void runScriptInCentral() {
+		Display.asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				new InternalBrowser().execute(OpenShiftLabel.Others.OPENSHIFT_CENTRAL_SCRIPT);
+			}
+		});
 	}
 }

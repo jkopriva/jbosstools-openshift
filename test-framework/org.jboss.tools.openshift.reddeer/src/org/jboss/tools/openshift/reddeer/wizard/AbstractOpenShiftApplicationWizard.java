@@ -20,7 +20,6 @@ import org.eclipse.reddeer.jface.handler.TreeViewerHandler;
 import org.eclipse.reddeer.swt.api.Combo;
 import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
-import org.eclipse.reddeer.swt.impl.browser.InternalBrowser;
 import org.eclipse.reddeer.swt.impl.button.BackButton;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -35,6 +34,7 @@ import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.openshift.core.connection.Connection;
 import org.jboss.tools.openshift.reddeer.condition.CentralIsLoaded;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
+import org.jboss.tools.openshift.reddeer.utils.TestUtils;
 
 /**
  * Abstract wizard for a new OpenShift application.
@@ -120,7 +120,7 @@ public abstract class AbstractOpenShiftApplicationWizard {
 		
 		new WaitUntil(new CentralIsLoaded());
 		
-		new InternalBrowser().execute(OpenShiftLabel.Others.OPENSHIFT_CENTRAL_SCRIPT);
+		TestUtils.runScriptInCentral();
 		
 		new WaitUntil(new JobIsRunning(), false);
 	
@@ -129,7 +129,7 @@ public abstract class AbstractOpenShiftApplicationWizard {
 				TimePeriod.LONG);
 		}catch (WaitTimeoutExpiredException ex) {
 			//try to run script once again
-			new InternalBrowser().execute(OpenShiftLabel.Others.OPENSHIFT_CENTRAL_SCRIPT);
+			TestUtils.runScriptInCentral();
 			new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
 					TimePeriod.LONG);
 		}

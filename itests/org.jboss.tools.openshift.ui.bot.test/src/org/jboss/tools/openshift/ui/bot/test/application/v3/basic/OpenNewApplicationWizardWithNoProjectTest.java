@@ -27,7 +27,6 @@ import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
-import org.eclipse.reddeer.swt.impl.browser.InternalBrowser;
 import org.eclipse.reddeer.swt.impl.button.BackButton;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -119,7 +118,7 @@ public class OpenNewApplicationWizardWithNoProjectTest extends AbstractTest {
 	public void testOpenNewApplicationWizardFromCentralWithNoProjects() {
 		new DefaultToolItem(new WorkbenchShell(), OpenShiftLabel.Others.RED_HAT_CENTRAL).click();
 		
-		new InternalBrowser().execute(OpenShiftLabel.Others.OPENSHIFT_CENTRAL_SCRIPT);
+		TestUtils.runScriptInCentral();
 	
 		new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
 				TimePeriod.LONG);

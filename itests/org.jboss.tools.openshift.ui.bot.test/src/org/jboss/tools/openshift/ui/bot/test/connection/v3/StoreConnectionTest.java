@@ -42,6 +42,7 @@ import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement
 import org.jboss.tools.openshift.reddeer.utils.DatastoreOS3;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
 import org.jboss.tools.openshift.reddeer.utils.SecureStorage;
+import org.jboss.tools.openshift.reddeer.utils.TestUtils;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -116,7 +117,7 @@ public class StoreConnectionTest extends AbstractTest {
 		
 		new WaitUntil(new CentralIsLoaded());
 		
-		new InternalBrowser().execute(OpenShiftLabel.Others.OPENSHIFT_CENTRAL_SCRIPT);
+		TestUtils.runScriptInCentral();
 	
 		new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
 				TimePeriod.LONG);
