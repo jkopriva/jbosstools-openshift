@@ -19,6 +19,7 @@ import org.eclipse.linuxtools.docker.reddeer.ui.DockerExplorerView;
 import org.eclipse.linuxtools.docker.reddeer.ui.resources.DockerConnection;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.jface.exception.JFaceLayerException;
+import org.eclipse.reddeer.junit.execution.annotation.RunIf;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.junit.screenshot.CaptureScreenshotException;
@@ -37,6 +38,7 @@ import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirem
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
 import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.jboss.tools.openshift.reddeer.view.resources.OpenShift3Connection;
+import org.jboss.tools.openshift.ui.bot.test.common.OpenShiftUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -67,16 +69,18 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 
 	@BeforeClass
 	public static void setUp() {
-		closeBrowser();// try to close browser if it is opened
-		createDockerConnection();
-		try {
-			pullImageIfDoesNotExist(HELLO_OS_DOCKER_IMAGE, TAG);
-		} catch (JFaceLayerException ex) {
-			String newExceptionMessage = debugDockerImageTest();
-			throw new RuntimeException(newExceptionMessage, ex);
+		if (!OpenShiftUtils.isWindows()) {
+			closeBrowser();// try to close browser if it is opened
+			createDockerConnection();
+			try {
+				pullImageIfDoesNotExist(HELLO_OS_DOCKER_IMAGE, TAG);
+			} catch (JFaceLayerException ex) {
+				String newExceptionMessage = debugDockerImageTest();
+				throw new RuntimeException(newExceptionMessage, ex);
+			}
+			createProject(PROJECT1, openshiftConnectionRequirement);
+			createProject(PROJECT2, openshiftConnectionRequirement);
 		}
-		createProject(PROJECT1, openshiftConnectionRequirement);
-		createProject(PROJECT2, openshiftConnectionRequirement);
 	}
 
 	/**
@@ -124,6 +128,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = DoNotRunOnWindows.class)
 	public void testWizardDataHandlingOpenedFromOpenShiftExplorerTest() {
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromOpenShiftExplorer(PROJECT1);
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromOpenShiftExplorer(PROJECT2);
@@ -131,6 +136,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = DoNotRunOnWindows.class)
 	public void testWizardDataHandlingOpenedFromDockerExplorer() {
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromDockerExplorer(PROJECT1);
 		assertDockerImageIsProcessedCorrectlyWhenUsedFromDockerExplorer(PROJECT2);
@@ -138,6 +144,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = DoNotRunOnWindows.class)
 	public void testDeployDockerImageFromOpenShiftExplorer() {
 		selectProject(PROJECT2, openshiftConnectionRequirement);
 		new ContextMenuItem(OpenShiftLabel.ContextMenu.DEPLOY_DOCKER_IMAGE).select();
@@ -152,6 +159,7 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = DoNotRunOnWindows.class)
 	public void testDeployDockerImageFromDockerExplorer() {
 		selectProject(PROJECT1, openshiftConnectionRequirement);
 		openDeployToOpenShiftWizardFromDockerExplorer(HELLO_OS_DOCKER_IMAGE, TAG);
@@ -213,7 +221,4 @@ public class DeployDockerImageTest extends AbstractDockerImageTest {
 		assertTrue("Resource should be infered from image name but it is not",
 				HELLO_OS_DOCKER_IMAGE.contains(new LabeledText(OpenShiftLabel.TextLabels.RESOURCE_NAME).getText()));
 	}
-	
-	
-
-}
+}	

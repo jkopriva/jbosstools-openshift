@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.jboss.tools.openshift.ui.bot.test.integration.docker;
 
+import org.eclipse.reddeer.junit.execution.annotation.RunIf;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
@@ -23,6 +24,7 @@ import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirem
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
 import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.jboss.tools.openshift.reddeer.view.resources.OpenShift3Connection;
+import org.jboss.tools.openshift.ui.bot.test.common.OpenShiftUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -52,12 +54,14 @@ public class DeployVariousDockerImagesTest extends AbstractDockerImageTest {
 
 	@BeforeClass
 	public static void setUp() {
-		closeBrowser();// try to close browser if it is opened
-		createDockerConnection();
-		pullImageIfDoesNotExist(NEXUS_DOCKER_IMAGE, NEXUS_TAG);
-		pullImageIfDoesNotExist(SPRINGBOOT_DOCKER_IMAGE, SPRINGBOOT_TAG);
-		createProject(PROJECT_NEXUS, openshiftConnectionRequirement);
-		createProject(PROJECT_SPRING_HELLOWORLD, openshiftConnectionRequirement);
+		if (!OpenShiftUtils.isWindows()) {
+			closeBrowser();// try to close browser if it is opened
+			createDockerConnection();
+			pullImageIfDoesNotExist(NEXUS_DOCKER_IMAGE, NEXUS_TAG);
+			pullImageIfDoesNotExist(SPRINGBOOT_DOCKER_IMAGE, SPRINGBOOT_TAG);
+			createProject(PROJECT_NEXUS, openshiftConnectionRequirement);
+			createProject(PROJECT_SPRING_HELLOWORLD, openshiftConnectionRequirement);
+		}
 	}
 
 	@AfterClass
@@ -78,6 +82,7 @@ public class DeployVariousDockerImagesTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = DoNotRunOnWindows.class)
 	public void testDeployNexusDockerImageFromOpenShiftExplorer() {
 		selectProject(PROJECT_NEXUS, openshiftConnectionRequirement);
 		new ContextMenuItem(OpenShiftLabel.ContextMenu.DEPLOY_DOCKER_IMAGE).select();
@@ -92,6 +97,7 @@ public class DeployVariousDockerImagesTest extends AbstractDockerImageTest {
 	}
 
 	@Test
+	@RunIf(conditionClass = DoNotRunOnWindows.class)
 	public void testDeploySpringHelloWorldDockerImageFromDockerExplorer() {
 		selectProject(PROJECT_SPRING_HELLOWORLD, openshiftConnectionRequirement);
 		openDeployToOpenShiftWizardFromDockerExplorer(SPRINGBOOT_DOCKER_IMAGE, SPRINGBOOT_TAG);

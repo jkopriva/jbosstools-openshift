@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -220,6 +221,10 @@ public class OpenShiftUtils {
 			//Select older EAP template(depends on OpenShift version)
 			new DefaultTree().selectItems(new DefaultTreeItem(OpenShiftLabel.Others.EAP_TEMPLATE_OLD));
 		}	
+	}
+	
+	public static boolean isWindows() {
+		return Platform.getOS().startsWith(Platform.OS_WIN32) && Platform.getOSArch().equals(Platform.ARCH_X86_64);
 	}
 
 }
