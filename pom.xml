@@ -99,9 +99,6 @@
 							<includes>
 								<include>org/jboss/tools/openshift/**/*</include>
 							</includes>
-							<excludes>
-								<exclude>**/reddeer/**/*</exclude>
-							</excludes>
 						</configuration>
 						<executions>
 							<execution>
