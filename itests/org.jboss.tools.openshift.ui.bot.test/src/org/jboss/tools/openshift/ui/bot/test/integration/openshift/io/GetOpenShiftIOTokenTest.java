@@ -37,6 +37,30 @@ import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.swt.impl.browser.InternalBrowser;
+import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
+import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.jboss.tools.openshift.reddeer.condition.BrowserContainsText;
+import org.jboss.tools.openshift.reddeer.preference.page.OpenShifIOPreferencePage;
+import org.jboss.tools.openshift.reddeer.utils.DatastoreOS3;
+import org.jboss.tools.openshift.reddeer.utils.SecureStorage;
+import org.jboss.tools.openshift.reddeer.utils.SystemProperties;
+import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
+import org.junit.AfterClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * 
@@ -47,6 +71,35 @@ public class GetOpenShiftIOTokenTest extends AbstractTest {
 
 	@Test
 	public void testGetToken() {
+		new DefaultToolItem(new WorkbenchShell(), "Connect to OpenShift.io").click();
+		DefaultShell browser = new DefaultShell();
+		InternalBrowser internalBrowser = new InternalBrowser(browser);
+		
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		new WaitUntil(new BrowserContainsText("OpenShift.io"), TimePeriod.getCustom(120));
+		
+		internalBrowser.execute(String.format("document.getElementById(\"username\").value=\"%s\"", DatastoreOS3.OPENSHIFT_IO_USERNAME));
+		internalBrowser.execute(String.format("document.getElementById(\"password\").value=\"%s\"", DatastoreOS3.OPENSHIFT_IO_PASSWORD));
+		internalBrowser.execute("document.getElementById(\"password\").parentElement.parentElement.parentElement.submit()");
+		
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		
+		try {
+			new DefaultShell("OpenShift.io");
+		} catch (CoreLayerException ex) {
+			//Secure storage has been triggered
+			SecureStorage.handleSecureStoragePasswordAndHint(SystemProperties.SECURE_STORAGE_PASSWORD);
+			new DefaultShell("OpenShift.io");
+		}
+		new OkButton().click();
+		
+		checkAccountInProperties();
+		checkPluginInSecureStorage();
+
+	}
+	
+	@Test
+	public void testGetToken2() {
 		new DefaultToolItem(new WorkbenchShell(), "Connect to OpenShift.io").click();
 		DefaultShell browser = new DefaultShell();
 		InternalBrowser internalBrowser = new InternalBrowser(browser);
