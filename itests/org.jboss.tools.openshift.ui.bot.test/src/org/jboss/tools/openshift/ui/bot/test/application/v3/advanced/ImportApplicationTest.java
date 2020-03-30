@@ -59,12 +59,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(value=JBossPerspective.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
 @RequiredBasicConnection
 @CleanConnection
 @RequiredProject
-@RequiredService(service = OpenShiftResources.EAP_SERVICE, template = OpenShiftResources.EAP_TEMPLATE_RESOURCES_PATH)
+@RequiredService(service = OpenShiftResources.EAP_SERVICE, template = OpenShiftResources.EAP_TEMPLATE_RESOURCES_PATH_OS4)
 public class ImportApplicationTest extends AbstractTest {
 	
 	public static String PROJECT_NAME = "helloworld";

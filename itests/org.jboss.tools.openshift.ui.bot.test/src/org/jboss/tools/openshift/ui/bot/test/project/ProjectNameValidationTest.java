@@ -38,7 +38,6 @@ import org.junit.runner.RunWith;
  * @author adietish@redhat.com
  * @contributor jkopriva@redhat.com
  */
-@OpenPerspective(JBossPerspective.class)
 @RequiredBasicConnection
 @RunWith(RedDeerSuite.class)
 public class ProjectNameValidationTest extends AbstractTest {

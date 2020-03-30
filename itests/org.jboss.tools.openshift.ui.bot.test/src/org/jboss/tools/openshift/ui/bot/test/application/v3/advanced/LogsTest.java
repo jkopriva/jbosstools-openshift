@@ -48,7 +48,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(JBossPerspective.class)
 @OCBinary(setOCInPrefs=true)
 @RequiredBasicConnection()
 @CleanConnection

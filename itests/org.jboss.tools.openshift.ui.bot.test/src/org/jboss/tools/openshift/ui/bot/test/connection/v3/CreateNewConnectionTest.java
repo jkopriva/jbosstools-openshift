@@ -64,7 +64,6 @@ import org.junit.runner.RunWith;
  */
 @SuppressWarnings("unused")
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(JBossPerspective.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
 @CleanOpenShiftExplorer
 public class CreateNewConnectionTest extends AbstractTest {

@@ -41,7 +41,6 @@ import org.junit.runner.RunWith;
 /**
  * @author jnovak@redhat.com
  */
-@OpenPerspective(value=JBossPerspective.class)
 @CleanOpenShiftExplorer
 @RequiredBasicConnection
 @CleanConnection
@@ -50,7 +49,7 @@ import org.junit.runner.RunWith;
 @RequiredService(
 		project = DatastoreOS3.TEST_PROJECT, 
 		service = OpenShiftResources.NODEJS_SERVICE, 
-		template = OpenShiftResources.NODEJS_TEMPLATE)
+		template = OpenShiftResources.NODEJS_TEMPLATE_OS4)
 @RunWith(RedDeerSuite.class)
 public abstract class ImportApplicationBase extends AbstractTest {
 	

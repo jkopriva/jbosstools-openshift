@@ -180,7 +180,7 @@ public class OpenShiftLabel {
 		public static final String WEBHOOK_TRIGGERS = "Webhooks triggers";
 		
 		// Resources related
-		public static final String CREATE_RESOURCE_SUMMARY = "Create Resource Summary";
+		public static final String CREATE_RESOURCE_SUMMARY = "New OpenShift resource";
 		public static final String DELETE_RESOURCE = "Delete OpenShift Resource";
 		
 		// Others

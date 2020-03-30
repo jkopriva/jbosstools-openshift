@@ -30,7 +30,6 @@ import org.junit.runners.MethodSorters;
  * @author jkopriva@redhat.com
  */
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(value = JBossPerspective.class)
 @OCBinary(cleanup=false, setOCInPrefs = true)
 @CleanOpenShiftExplorer
 @RequiredBasicConnection

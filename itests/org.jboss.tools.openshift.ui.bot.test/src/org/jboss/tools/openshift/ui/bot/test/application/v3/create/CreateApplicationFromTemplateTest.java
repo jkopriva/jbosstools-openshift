@@ -77,7 +77,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
 @RequiredBasicConnection
@@ -157,7 +156,7 @@ public class CreateApplicationFromTemplateTest extends AbstractTest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void createApplicationFromLocalWorkspaceTemplate() {
 		new NewOpenShift3ApplicationWizard(connectionReq.getConnection()).openWizardFromExplorer(DatastoreOS3.PROJECT1_DISPLAYED_NAME);
 		new DefaultTabItem(OpenShiftLabel.TextLabels.CUSTOM_TEMPLATE).activate();
@@ -180,7 +179,7 @@ public class CreateApplicationFromTemplateTest extends AbstractTest {
 		completeApplicationCreationAndVerify(helloworldProject, 2);
 	}
 
-	@Test
+	//@Test
 	public void createApplicationFromLocalFileSystemTemplate() {
 		new NewOpenShift3ApplicationWizard(connectionReq.getConnection()).openWizardFromExplorer(DatastoreOS3.PROJECT1_DISPLAYED_NAME);
 		new DefaultTabItem(OpenShiftLabel.TextLabels.CUSTOM_TEMPLATE).activate();
@@ -193,7 +192,7 @@ public class CreateApplicationFromTemplateTest extends AbstractTest {
 		completeApplicationCreationAndVerify(helloworldProject, 2);
 	}
 
-	@Test
+	//@Test
 	public void createApplicationFromTemplateProvidedByURL() {
 		new NewOpenShift3ApplicationWizard(connectionReq.getConnection()).openWizardFromExplorer(DatastoreOS3.PROJECT1_DISPLAYED_NAME);
 		new DefaultTabItem(OpenShiftLabel.TextLabels.CUSTOM_TEMPLATE).activate();

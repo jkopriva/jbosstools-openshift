@@ -30,7 +30,6 @@ import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(JBossPerspective.class)
 @RequiredBasicConnection
 @CleanConnection
 @RequiredProject

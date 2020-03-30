@@ -68,7 +68,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(value=JBossPerspective.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
 @RequiredBasicConnection
 @RequiredProject
@@ -94,7 +93,7 @@ public class CreateServerAdapterTest extends AbstractTest  {
 	public static void waitTillApplicationIsRunning() {
 		new WaitWhile(new OpenShiftResourceExists(Resource.BUILD, "eap-app-1", ResourceState.RUNNING,
 				projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.getCustom(600));
-		new WaitUntil(new AmountOfResourcesExists(Resource.POD, 2, projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.LONG,
+		new WaitUntil(new AmountOfResourcesExists(Resource.POD, 3, projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.LONG,
 				false);
 
 		cloneGitRepoAndImportProject();

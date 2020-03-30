@@ -49,7 +49,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(JBossPerspective.class)
 @RequiredBasicConnection
 @RunWith(RedDeerSuite.class)
 public class TemplateParametersTest extends AbstractTest {

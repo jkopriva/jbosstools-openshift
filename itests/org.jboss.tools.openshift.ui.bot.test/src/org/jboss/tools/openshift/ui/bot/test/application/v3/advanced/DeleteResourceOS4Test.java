@@ -23,7 +23,6 @@ import org.jboss.tools.openshift.reddeer.requirement.OpenShiftServiceRequirement
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(value = JBossPerspective.class)
 @OCBinary(cleanup=false, setOCInPrefs = true)
 @CleanOpenShiftExplorer
 @RequiredBasicConnection

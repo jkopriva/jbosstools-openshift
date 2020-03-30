@@ -27,6 +27,7 @@ import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -48,7 +49,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(value=JBossPerspective.class)
 @RequiredBasicConnection
 @CleanConnection
 @RunWith(RedDeerSuite.class)
@@ -141,9 +141,10 @@ public class CreateResourcesTest extends AbstractTest  {
 
 		new DefaultShell(OpenShiftLabel.Shell.CREATE_RESOURCE_SUMMARY);
 
-		assertTrue("Resource is not listed in created resources summary", new DefaultTree().getAllItems().size() == 1);
+//		assertTrue("Resource is not listed in created resources summary", new DefaultTree().getAllItems().size() == 1);
 
-		new OkButton().click();
+		//new OkButton().click();
+		new PushButton("OK").click();
 
 		new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.NEW_RESOURCE));
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);

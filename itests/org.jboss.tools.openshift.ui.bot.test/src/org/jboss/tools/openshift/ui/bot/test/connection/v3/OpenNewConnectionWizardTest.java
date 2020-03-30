@@ -37,7 +37,6 @@ import org.junit.runner.RunWith;
  *
  */
 
-@OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
 @CleanOpenShiftExplorer
 public class OpenNewConnectionWizardTest extends AbstractTest {

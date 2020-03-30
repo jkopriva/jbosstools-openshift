@@ -19,7 +19,6 @@ import org.jboss.tools.openshift.reddeer.requirement.CleanOpenShiftConnectionReq
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftConnectionRequirement.RequiredBasicConnection;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(value=JBossPerspective.class)
 @RequiredBasicConnection
 @CleanConnection
 @RunWith(RedDeerSuite.class)
