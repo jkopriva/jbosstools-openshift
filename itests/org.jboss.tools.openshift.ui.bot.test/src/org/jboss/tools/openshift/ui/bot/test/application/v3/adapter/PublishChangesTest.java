@@ -58,7 +58,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
 @CleanOpenShiftExplorer
@@ -116,7 +115,7 @@ public class PublishChangesTest extends AbstractTest  {
 	
 	private void createServerAdapter() {
 		OpenShiftExplorerView explorer = new OpenShiftExplorerView();
-		explorer.getOpenShift3Connection(connectionReq.getConnection()).getProject(projectReq.getProjectName()).getServicesWithName(OpenShiftResources.EAP_SERVICE).get(0).createServerAdapter();
+		explorer.getOpenShift3Connection(connectionReq.getConnection()).getProject(projectReq.getProjectName()).getServicesWithName("eap-app-1").get(0).createServerAdapter();
 	}
 	
 	private void changeProjectAndVerifyAutoPublish() {

@@ -28,7 +28,6 @@ import org.junit.runner.RunWith;
  * @author jkopriva@redhat.com
  * 
  */
-@OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
 @CleanOpenShiftExplorer

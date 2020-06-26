@@ -26,7 +26,6 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(JBossPerspective.class)
 @RequiredBasicConnection
 @CleanConnection
 @RequiredProject

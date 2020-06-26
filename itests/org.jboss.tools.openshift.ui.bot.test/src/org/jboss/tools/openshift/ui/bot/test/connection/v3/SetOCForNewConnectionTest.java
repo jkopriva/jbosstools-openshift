@@ -47,7 +47,6 @@ import org.junit.runner.RunWith;
  * @author jkopriva@redhat.com
  */
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(JBossPerspective.class)
 @CleanOpenShiftExplorer
 public class SetOCForNewConnectionTest extends AbstractTest {
 

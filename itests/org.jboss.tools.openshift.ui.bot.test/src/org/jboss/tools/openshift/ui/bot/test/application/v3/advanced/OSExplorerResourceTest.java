@@ -86,7 +86,7 @@ public class OSExplorerResourceTest extends AbstractTest {
 	 * Test if deployment config is visible in OS Explorer, when there is no
 	 * service.
 	 */
-	@Test(expected = OpenshiftTestInFailureException.class)
+	@Test//(expected = OpenshiftTestInFailureException.class)
 	public void testDeploymentConfigVisibleAfterServiceDeletion() {
 		deleteService(OpenShiftResources.EAP_SERVICE);
 		deleteService(OpenShiftResources.EAP_SERVICE_PING);

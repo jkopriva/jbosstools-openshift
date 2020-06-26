@@ -68,56 +68,20 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(RedDeerSuite.class)
 @SuiteClasses({
-	// General
-	OCBinaryLocationTest.class,
-	SetOCForNewConnectionTest.class,
-	
-	// Connection
-	OpenNewConnectionWizardTest.class,
-	CreateNewConnectionTest.class,
-	RemoveConnectionTest.class,
-	ConnectionWizardHandlingTest.class,
-	StoreConnectionTest.class,
 	ConnectionPropertiesTest.class,
-	
-	// Project
-	ProjectNameValidationTest.class,
-	LinkToCreateNewProjectTest.class,
-	CreateNewProjectTest.class,
-	DeleteProjectTest.class,
-	ResourcesTest.class,
-	ProjectPropertiesTest.class,
 
-	// Application wizard handling
-	OpenNewApplicationWizardTest.class,
-	OpenNewApplicationWizardWithNoProjectTest.class,
-	NewApplicationWizardHandlingTest.class,
-	TemplateParametersTest.class,
-	LabelsTest.class,
-	BuilderImageApplicationWizardHandlingTest.class,
-	
-	// Creation of a new application
 	CreateApplicationFromTemplateTest.class,
-	CreateApplicationOnBuilderImageTest.class, 
 	DeploymentTest.class,
 	
 	// Application handling
 	DeleteResourceTest.class, 
-	InteligentDeleteResourceTest.class,
 	OSExplorerResourceTest.class,
-	TriggerBuildTest.class, 
 	ImportApplicationTest.class,
-	PortForwardingTest.class, 
-	LogsTest.class, 
-	EditResourcesTest.class,
-	HandleCustomTemplateTest.class,
-	ImportApplicationWizardTest.class,
 	ImportApplicationWizardGitTest.class,
 
 	// Advanced application testing
-	DeployDockerImageTest.class,
-	DeployVariousDockerImagesTest.class,
- 	CreateResourcesTest.class,
+	//DeployDockerImageTest.class,
+	//DeployVariousDockerImagesTest.class,
 	ScalingTest.class,
 	EditResourceLimitsTest.class,
 

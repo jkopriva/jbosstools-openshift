@@ -176,6 +176,9 @@ public class OpenShiftProject extends AbstractOpenShiftExplorerItem {
 		
 		PropertySheet propertiesView = new PropertySheet();
 		propertiesView.activate();
+		
+		new DefaultToolItem(propertiesView.getCTabItem().getFolder(), "Pins this property view to the current selection")
+			.toggle(true);
 	}
 	
 	/**

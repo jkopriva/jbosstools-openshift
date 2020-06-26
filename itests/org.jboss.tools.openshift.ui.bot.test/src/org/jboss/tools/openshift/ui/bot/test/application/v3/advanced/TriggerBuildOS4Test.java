@@ -18,7 +18,6 @@ import org.jboss.tools.openshift.reddeer.requirement.OpenShiftProjectRequirement
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftResources;
 import org.jboss.tools.openshift.reddeer.requirement.OpenShiftServiceRequirement.RequiredService;
 
-@OpenPerspective(value=JBossPerspective.class)
 @OCBinary
 @RequiredBasicConnection
 @RequiredProject

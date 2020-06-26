@@ -53,7 +53,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 @OCBinary(cleanup=false, setOCInPrefs=true)
-@OpenPerspective(value=JBossPerspective.class)
 @RequiredBasicConnection
 @CleanConnection
 @RequiredProject(

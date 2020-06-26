@@ -49,10 +49,10 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(RedDeerSuite.class)
 @SuiteClasses({
 		//not yet stable is added in commented line to easily track not stable tests
-	
-		// General
-		OCBinaryLocationTest.class, 
-		SetOCForNewConnectionTest.class,
+//	
+//		// General
+//		OCBinaryLocationTest.class, 
+//		SetOCForNewConnectionTest.class,
 
 		// Connection/
 		OpenNewConnectionWizardTest.class, 

@@ -39,12 +39,11 @@ import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(value=JBossPerspective.class)
 @RunWith(RedDeerSuite.class)
 @OCBinary
 @RequiredBasicConnection
 @RequiredProject
-@RequiredService(service = OpenShiftResources.EAP_SERVICE, template = OpenShiftResources.EAP_TEMPLATE_RESOURCES_PATH)
+@RequiredService(service = "eap-app-1", template = OpenShiftResources.EAP_TEMPLATE_RESOURCES_PATH)
 public class DeploymentTest extends AbstractTest {
 
 	@InjectRequirement
@@ -57,8 +56,8 @@ public class DeploymentTest extends AbstractTest {
 	public void testDeploymentOfApplicationCreatedFromTemplate() {
 		OpenShiftExplorerView explorer = new OpenShiftExplorerView();
 
-		new WaitUntil(new OpenShiftResourceExists(Resource.BUILD, "eap-app-1", ResourceState.UNSPECIFIED,
-				projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.DEFAULT, false);
+		//new WaitUntil(new OpenShiftResourceExists(Resource.BUILD, "eap-app", ResourceState.UNSPECIFIED,
+		//		projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.DEFAULT, false);
 
 		try {
 			new WaitUntil(new OpenShiftResourceExists(Resource.BUILD, "eap-app-1", ResourceState.COMPLETE, projectReq.getProjectName(), connectionReq.getConnection()),
@@ -68,7 +67,7 @@ public class DeploymentTest extends AbstractTest {
 		}
 
 		try {
-			new WaitUntil(new AmountOfResourcesExists(Resource.POD, 2, projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.getCustom(60), true);
+			new WaitUntil(new AmountOfResourcesExists(Resource.POD, 3, projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.getCustom(60), true);
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("There should be precisely 2 pods. One of the build and one of an running application.");
 		}

@@ -81,7 +81,7 @@ public class InteligentDeleteResourceTest extends AbstractTest {
 		new WaitUntil(new OpenShiftResourceExists(Resource.BUILD, "eap-app-1", ResourceState.COMPLETE,
 				projectReq.getProjectName(), connectionReq.getConnection()), TimePeriod.getCustom(600), true);
 
-		new WaitUntil(new AmountOfResourcesExists(Resource.POD, 2, projectReq.getProjectName(),
+		new WaitUntil(new AmountOfResourcesExists(Resource.POD, 3, projectReq.getProjectName(),
 				connectionReq.getConnection()), TimePeriod.VERY_LONG, true);
 	}
 	

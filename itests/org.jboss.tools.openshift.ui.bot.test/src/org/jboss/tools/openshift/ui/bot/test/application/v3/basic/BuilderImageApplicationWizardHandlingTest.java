@@ -54,7 +54,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@OpenPerspective(JBossPerspective.class)
 @RequiredBasicConnection
 @RequiredProject(name="builderimagevalidationproject")
 @RunWith(RedDeerSuite.class)

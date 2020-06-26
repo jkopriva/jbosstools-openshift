@@ -41,7 +41,6 @@ import org.jboss.tools.openshift.reddeer.view.resources.OpenShiftResource;
 import org.jboss.tools.openshift.ui.bot.test.application.v3.basic.AbstractTest;
 import org.junit.Test;
 
-@OpenPerspective(value=JBossPerspective.class)
 @OCBinary
 @RequiredBasicConnection
 @RequiredProject
