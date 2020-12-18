@@ -11,6 +11,7 @@
 package org.jboss.tools.openshift.reddeer.view.resources;
 
 import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
@@ -67,7 +68,7 @@ public class OpenShiftODOComponent extends AbstractOpenShiftApplicationExplorerI
 		new ContextMenuItem(OpenShiftLabel.ContextMenu.DEBUG).select();
     
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
-		new WaitWhile(new TerminalHasNoChange(), TimePeriod.VERY_LONG);
+		new WaitUntil(new TerminalHasNoChange(), TimePeriod.VERY_LONG, false);
 	}
 
 	/**
