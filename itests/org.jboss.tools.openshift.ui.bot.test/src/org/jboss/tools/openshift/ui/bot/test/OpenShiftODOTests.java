@@ -33,14 +33,14 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(RedDeerSuite.class)
 @SuiteClasses({
-	//LoginODOTest.class,
-	//ProjectManagementODOTest.class,
-	//ConnectionODOCommandsTests.class, 
-	//CreateS2IComponentODOTest.class,
-	//CreateVertxDevfileComponentWithLocalDevfileODOTest.class,
-	//CreateDevfileComponentODOTest.class,
-	DebugNodeS2IComponentODOTest.class,
-	//DebugNodeDevfileComponentODOTest.class,
+	LoginODOTest.class,
+	ProjectManagementODOTest.class,
+	ConnectionODOCommandsTests.class, 
+	CreateS2IComponentODOTest.class,
+	CreateVertxDevfileComponentWithLocalDevfileODOTest.class,
+	CreateDevfileComponentODOTest.class,
+	fucked upDebugNodeS2IComponentODOTest.class,
+	DebugNodeDevfileComponentODOTest.class,
 	DebugVertxS2IComponentODOTest.class,
 	DebugVertxDevfileComponentODOTest.class,
 	CreateServiceODOTest.class
