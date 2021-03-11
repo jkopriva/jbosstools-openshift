@@ -41,8 +41,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	CreateDevfileComponentODOTest.class,
 	DebugNodeS2IComponentODOTest.class,
 	DebugNodeDevfileComponentODOTest.class,
-	DebugVertxS2IComponentODOTest.class,
-	DebugVertxDevfileComponentODOTest.class,
+//	DebugVertxS2IComponentODOTest.class,
+//	DebugVertxDevfileComponentODOTest.class,
 	//CreateServiceODOTest.class - disable this suite for now, depends on service catalog (which is not supported on newer OpenShift)
 })
 public class OpenShiftODOTests {
